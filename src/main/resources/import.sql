@@ -1,6 +1,7 @@
 INSERT INTO tb_autor (id, nome, biografia) VALUES
                                                (1, 'J.R.R. Tolkien', 'Autor de O Senhor dos Anéis'),
-                                               (2, 'George Orwell', 'Autor de 1984');
+                                               (2, 'George Orwell', 'Autor de 1984'),
+                                               (3,'Rick Riordan','Autor de Percy Jackson');
 
 INSERT INTO tb_categoria (id, nome) VALUES
                                         (1, 'Ficção Científica'),
@@ -8,7 +9,8 @@ INSERT INTO tb_categoria (id, nome) VALUES
 
 INSERT INTO tb_livro (id, titulo, disponivel, autorId, categoriaId) VALUES
                                                                         (1, 'O Senhor dos Anéis', true, 1, 2),
-                                                                        (2, '1984', true, 2, 1);
+                                                                        (2, '1984', true, 2, 1),
+                                                                        (3, 'Percy Jackson e os Olimpianos', true, 3, 2);
 
 INSERT INTO tb_usuario (id, nome, email, senha, tipo) VALUES
                                                           (1, 'Alice Silva', 'alice@email.com', 'senha123', 'PROFESSOR'),
