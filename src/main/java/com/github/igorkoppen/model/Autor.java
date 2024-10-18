@@ -21,8 +21,7 @@ public class Autor {
     @OneToMany(mappedBy = "autor")
     private List<Livro> livros;
 
-    public Autor(Long id, String nome, String biografia, List<Livro> livros) {
-        this.id = id;
+    public Autor(String nome, String biografia, List<Livro> livros) {
         this.nome = nome;
         this.biografia = biografia;
         this.livros = livros;

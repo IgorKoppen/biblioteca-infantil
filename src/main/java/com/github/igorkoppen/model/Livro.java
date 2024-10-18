@@ -1,6 +1,5 @@
 package com.github.igorkoppen.model;
 
-
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -9,6 +8,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "tb_livro")
 public class Livro {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "livro_sequence")
@@ -30,8 +30,7 @@ public class Livro {
     @OneToMany(mappedBy = "livro")
     private List<Emprestimo> emprestimos;
 
-    public Livro(Long id, String titulo, Boolean disponivel, Autor autor, Categoria categoria, List<Emprestimo> emprestimos) {
-        this.id = id;
+    public Livro( String titulo, Boolean disponivel, Autor autor, Categoria categoria, List<Emprestimo> emprestimos) {
         this.titulo = titulo;
         this.disponivel = disponivel;
         this.autor = autor;

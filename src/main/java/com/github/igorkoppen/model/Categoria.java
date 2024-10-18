@@ -12,14 +12,13 @@ public class Categoria {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "categoria_sequence")
     @SequenceGenerator(name = "categoria_sequence", sequenceName = "categoria_seq")
     private Long id;
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String nome;
 
     @OneToMany(mappedBy = "categoria")
     private List<Livro> livros;
 
-    public Categoria(Long id, String nome, List<Livro> livros) {
-        this.id = id;
+    public Categoria(String nome, List<Livro> livros) {
         this.nome = nome;
         this.livros = livros;
     }

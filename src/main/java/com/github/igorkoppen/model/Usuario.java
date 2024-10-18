@@ -15,7 +15,7 @@ public class Usuario {
     private Long id;
     @Column(nullable = false)
     private String nome;
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
     @Column(nullable = false)
     private String senha;
@@ -27,8 +27,7 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario")
     private List<Emprestimo> emprestimos;
 
-    public Usuario(Long id, String nome, String email, String senha, TipoUser tipo, List<Emprestimo> emprestimos) {
-        this.id = id;
+    public Usuario( String nome, String email, String senha, TipoUser tipo, List<Emprestimo> emprestimos) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;

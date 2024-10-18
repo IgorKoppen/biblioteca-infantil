@@ -30,8 +30,7 @@ public class Emprestimo {
     @JoinColumn(name = "usuarioId")
     private Usuario usuario;
 
-    public Emprestimo(Long id, LocalDate dataEmprestimo, LocalDate dataDevolucao, LocalDate dataDevolvido, Livro livro, Usuario usuario) {
-        this.id = id;
+    public Emprestimo(LocalDate dataEmprestimo, LocalDate dataDevolucao, LocalDate dataDevolvido, Livro livro, Usuario usuario) {
         this.dataEmprestimo = dataEmprestimo;
         this.dataDevolucao = dataDevolucao;
         this.dataDevolvido = dataDevolvido;
