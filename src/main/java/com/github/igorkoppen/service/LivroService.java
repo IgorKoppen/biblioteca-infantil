@@ -14,10 +14,8 @@ import com.github.igorkoppen.repository.LivroRepository;
 import io.quarkus.hibernate.reactive.panache.common.WithSession;
 import io.quarkus.hibernate.reactive.panache.common.WithTransaction;
 import io.smallrye.mutiny.Uni;
-import io.smallrye.mutiny.unchecked.Unchecked;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import jakarta.validation.ConstraintViolationException;
 import org.jboss.logging.Logger;
 
 import java.util.List;
@@ -44,7 +42,7 @@ public class LivroService {
     public Uni<LivroDTO> create(LivroDTO livroDTO) {
         Livro livro = new Livro();
         return populateEntity(livro, livroDTO)
-                .flatMap(livroRepository::persist)
+                .flatMap(livroAtualizado -> livroRepository.persistAndFlush(livroAtualizado))
                 .map(l -> {
                     logger.info("Livro criado: " + l.getTitulo());
                     return toDTO(l);
@@ -79,31 +77,22 @@ public class LivroService {
     }
 
     @WithTransaction
-    public Uni<Boolean> delete(Long id) {
+    public Uni<Void> delete(Long id) {
         return livroRepository.findById(id)
                 .onItem().ifNotNull().transformToUni(existingLivro ->
-                        emprestimoRepository.countByLivroId(id)
-                                .onItem().transformToUni(count -> {
-                                    if (count > 0) {
-                                        return Uni.createFrom().failure(
-                                                new DatabaseOperationException("Não é possível deletar o livro "+ "("+ existingLivro.getTitulo() +")"+", pois ele já foi emprestado.")
-                                        );
-                                    } else {
-                                        return livroRepository.deleteById(id)
-                                                .invoke(Unchecked.consumer(deleted -> {
-                                                    if (!deleted) {
-                                                        throw new DatabaseOperationException("Não foi possível deletar o livro.");
-                                                    }
-                                                }));
-                                    }
+                        emprestimoRepository.findByLivroId(id)
+                                .onItem().ifNotNull().transformToUni(emprestimo ->
+                                        Uni.createFrom().failure(
+                                                new DatabaseOperationException("Não é possível excluir o livro enquanto ele tiver emprestimos pendentes."))
+                                )
+                                .onItem().ifNull().switchTo(() -> {
+                                    logger.error("tentou deletar");
+                                    return livroRepository.deleteById(id).onItem().ifNull().failWith(() -> new DatabaseOperationException("Erro ao deletar o livro com ID: " + id));
                                 })
                 )
-                .onFailure().invoke(ex -> {
-                    logger.error("Erro ao deletar o livro com ID: " + id, ex);
-                })
-                .onItem().ifNull().failWith(() ->
-                        new ResourceNotFoundException("Livro com ID " + id + " não encontrado")
-                );
+                .onFailure().invoke(ex -> logger.error("Erro ao deletar o livro com ID: " + id, ex))
+                .onItem().ifNull().failWith(() -> new ResourceNotFoundException("Livro com ID " + id + " não encontrado"))
+                .replaceWithVoid();
     }
 
     private Uni<Livro> populateEntity(Livro livro, LivroDTO livroDTO) {
