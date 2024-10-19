@@ -11,8 +11,7 @@ import java.util.Objects;
 public class Autor {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "autor_sequence")
-    @SequenceGenerator(name = "autor_sequence", sequenceName = "autor_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
     private  String nome;

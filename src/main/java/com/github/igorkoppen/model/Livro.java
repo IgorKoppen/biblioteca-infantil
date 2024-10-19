@@ -11,8 +11,7 @@ public class Livro {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "livro_sequence")
-    @SequenceGenerator(name = "livro_sequence", sequenceName = "livro_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
     private String titulo;

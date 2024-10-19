@@ -9,8 +9,7 @@ import java.util.Objects;
 @Table(name = "tb_categoria")
 public class Categoria {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "categoria_sequence")
-    @SequenceGenerator(name = "categoria_sequence", sequenceName = "categoria_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false, unique = true)
     private String nome;

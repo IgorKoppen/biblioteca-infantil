@@ -11,8 +11,7 @@ import java.util.Objects;
 public class Emprestimo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "emprestimo_sequence")
-    @SequenceGenerator(name = "emprestimo_sequence", sequenceName = "emprestimo_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
