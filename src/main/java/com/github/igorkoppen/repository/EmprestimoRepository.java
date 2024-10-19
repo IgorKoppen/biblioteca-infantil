@@ -9,7 +9,9 @@ import jakarta.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class EmprestimoRepository implements PanacheRepository<Emprestimo> {
 
-    public Uni<Long> countByLivroId(Long livroId) {
-        return count("livro.id", livroId);
+    public Uni<Emprestimo> findByLivroId(Long livroId) {
+        return find("livro.id", livroId).firstResult();
     }
+
+
 }
