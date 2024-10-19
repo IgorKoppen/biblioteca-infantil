@@ -24,15 +24,9 @@ public class LivroResource {
     @POST
     public Uni<Response> create(@Valid LivroDTO livroDTO) {
         return livroService.create(livroDTO)
-                .map(createdLivro -> {
-                    URI uri = UriBuilder.fromUri(uriInfo.getAbsolutePath())
-                            .path(Long.toString(createdLivro.getId()))
-                            .build();
-                    return Response.created(uri)
-                            .entity(createdLivro)
-                            .link(uri, "self")
-                            .build();
-                });
+                .map(createdLivro -> Response.created(URI.create("/livros/" + createdLivro.getId()))
+                        .entity(createdLivro)
+                        .build());
     }
 
     @GET
