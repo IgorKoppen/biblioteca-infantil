@@ -9,7 +9,6 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
 
 import java.net.URI;
-import java.util.List;
 
 @Path("/livros")
 @Produces(MediaType.APPLICATION_JSON)
@@ -37,8 +36,8 @@ public class LivroResource {
     }
 
     @GET
-    public Uni<List<LivroDTO>> findAll() {
-        return livroService.findAll();
+    public Uni<Response> findAll() {
+        return livroService.findAll().map(livros -> Response.ok(livros).build());
     }
 
     @PUT

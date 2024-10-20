@@ -115,12 +115,11 @@ public class LivroService {
     }
 
     private LivroDTO toDTO(Livro livro) {
-        LivroDTO dto = new LivroDTO();
-        dto.setId(livro.getId());
-        dto.setTitulo(livro.getTitulo());
-        dto.setAutorId(livro.getAutor() != null ? livro.getAutor().getId() : null);
-        dto.setCategoriaId(livro.getCategoria() != null ? livro.getCategoria().getId() : null);
-        dto.setDisponivel(livro.getDisponivel());
-        return dto;
+        return new LivroDTO(
+                livro.getId(),
+                livro.getTitulo(),
+                livro.getAutor() != null ? livro.getAutor().getId() : null,
+                livro.getCategoria() != null ? livro.getCategoria().getId() : null,
+                livro.getDisponivel());
     }
 }

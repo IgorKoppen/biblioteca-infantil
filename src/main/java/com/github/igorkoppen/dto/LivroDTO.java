@@ -31,43 +31,36 @@ public class LivroDTO {
         this.disponivel = disponivel;
     }
 
+    public LivroDTO(Long id, String titulo, Long autorId, Long categoriaId, Boolean disponivel) {
+        this.id = id;
+        this.titulo = titulo;
+        this.autorId = autorId;
+        this.categoriaId = categoriaId;
+        this.disponivel = disponivel;
+    }
+
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getTitulo() {
         return titulo;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
 
     public Long getAutorId() {
         return autorId;
     }
 
-    public void setAutorId(Long autorId) {
-        this.autorId = autorId;
-    }
 
     public Long getCategoriaId() {
         return categoriaId;
     }
 
-    public void setCategoriaId(Long categoriaId) {
-        this.categoriaId = categoriaId;
-    }
 
     public Boolean getDisponivel() {
         return disponivel;
     }
 
-    public void setDisponivel(Boolean disponivel) {
-        this.disponivel = disponivel;
-    }
 }
