@@ -14,4 +14,8 @@ public class EmprestimoRepository implements PanacheRepository<Emprestimo> {
     }
 
 
+    public Uni<Emprestimo> findByUsuarioId(Long usuarioId) {
+        return find("usuario.id", usuarioId).firstResult();
+    }
+
 }
