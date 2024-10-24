@@ -17,8 +17,6 @@ public class LivroResource {
     @Inject
     LivroService livroService;
 
-    @Context
-    UriInfo uriInfo;
 
     @POST
     public Uni<Response> create(@Valid LivroDTO livroDTO) {
